@@ -24,10 +24,11 @@ export class Campaingn extends Component {
             </thead>
             <tbody>
               {campaingns.map(campaingn =>
-                <tr key={campaingn.Name}>
-                  <td>{campaingn.Age}</td>
-                  <td>{campaingn.Has5g}</td>
-                  <td>{campaingn.Date}</td>
+                <tr key={campaingn.id}>
+                   <td>{campaingn.name}</td>
+                  <td>{campaingn.age}</td>
+                  <td>{campaingn.has5g}</td>
+                  <td>{campaingn.date}</td>
                 </tr>
               )}
             </tbody>
@@ -42,15 +43,15 @@ export class Campaingn extends Component {
     
         return (
           <div>
-            <h1 id="tabelLabel" >Campaingns Has 5G</h1>
-            <p>This component demonstrates fetching data from the server.</p>
+            <h1 id="tabelLabel" >MEO campaigns want you !!! we want to know if you have 5G?</h1>
+           
             {contents}
           </div>
         );
       }
 
     async populateCampaingnData() {
-        const response = await fetch('/api/Campaingns');
+        const response = await fetch('/api/campaingns');
         const data = await response.json();
         this.setState({ campaingns: data, loading: false });
      }

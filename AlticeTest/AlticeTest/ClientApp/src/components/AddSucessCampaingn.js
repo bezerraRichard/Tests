@@ -10,8 +10,7 @@ export class AddSucessCampaingn extends Component {
       render() {   
         return (
           <div>
-            <h1 id="tabelLabel" >Campaingns Has 5G</h1>
-            <p>Congratulations on submitting the questionnaire.</p>
+            <h2>Congratulations on submitting the questionnaire.</h2>
           </div>
         );
       }

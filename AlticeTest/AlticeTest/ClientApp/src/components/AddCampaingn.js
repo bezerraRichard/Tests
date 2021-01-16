@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
-import { useHistory,Redirect } from 'react-router-dom';
-
+import { AddSucessCampaingn } from './AddSucessCampaingn';
 export class AddCampaingn extends Component {
     static displayName = AddCampaingn.name;
 
     constructor(props) {
         super(props);
-        this.state = { campaingn: {name:'',age:'',has5g:false}, loading: true };
+        this.state = { campaingn: {id:0,name:'',age:'',has5g:false}, loading: true };
+        this.handleSave= this.handleSave.bind(this)
       }
     
       componentDidMount() {
@@ -49,9 +49,16 @@ export class AddCampaingn extends Component {
     
         return (
           <div>
-            <h1 id="tabelLabel" >Campaingns Has 5G</h1>
-            <p>This component demonstrates fetching data from the server.</p>
-            {contents}
+            <h1 id="tabelLabel" >MEO campaigns want you !!! we want to know if you have 5G?</h1>
+            
+            { this.state && this.state.campaingn.id==0 &&
+             contents
+            }
+
+            { this.state && this.state.campaingn.id>0 &&
+             <AddSucessCampaingn/> 
+            }
+            
           </div>
         );
       }
@@ -61,12 +68,15 @@ export class AddCampaingn extends Component {
         const data = await response.json();
         this.setState({ campaingns: data, loading: false });
      }
-
-   handleSave(event) {
+   
+    createCampaingnData() {
+      this.setState({ campaingns: {}, loading: false });
+   }
+ 
+  handleSave(event) {
       event.preventDefault();
-      //let history = useHistory();
       const data = new FormData(event.target);
-
+      
       fetch('/api/campaingns', {
         method: 'POST',
         body: JSON.stringify(
@@ -81,16 +91,11 @@ export class AddCampaingn extends Component {
           'Content-Type': 'application/json',
         },
         }).then((response) => response.json())
-          .catch((erro)=>{
-
-          })
-          .then((responseJson) => {
-            //history.action('/AddSucessCampaingn');
-            window.location='/AddSucessCampaingn';
-            //<Redirect to='/AddSucessCampaingn'/>
-            
-      });
-    }
+          .catch((erro)=>{})
+          .then(campaingn=>{ 
+            this.setState({ campaingn: campaingn, loading: true });
+        });
+  }
   // This will handle Cancel button click event.
   handleCancel(e) {
     e.preventDefault();

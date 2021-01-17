@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-
+import { Alert } from 'reactstrap';
 export class AddSucessCampaingn extends Component {
     static displayName = AddSucessCampaingn.name;
 
@@ -9,9 +9,9 @@ export class AddSucessCampaingn extends Component {
     
       render() {   
         return (
-          <div>
-            <h2>Congratulations on submitting the questionnaire.</h2>
-          </div>
+        <Alert color="success">
+        Congratulations on submitting the questionnaire!!
+        </Alert>
         );
       }
 }

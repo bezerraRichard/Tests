@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { AddSucessCampaingn } from './AddSucessCampaingn';
+import { Col, Button, Form, FormGroup, Label, Input, FormText } from 'reactstrap';
 export class AddCampaingn extends Component {
     static displayName = AddCampaingn.name;
 
@@ -15,16 +16,30 @@ export class AddCampaingn extends Component {
     
     renderAddCampaingn() {
         return (
-          <form onSubmit={this.handleSave} >
+          <Form onSubmit={this.handleSave} >
 
-          < div className="form-group row" >
-              <label className=" control-label col-md-12" htmlFor="name">Name</label>
-              <div className="col-md-4">
-                  <input className="form-control" type="text" name="name" defaultValue={this.state.campaingn.name} required />
-              </div>
-          </div >
+          <FormGroup row> 
+              <Label for="name" sm={12}>Name</Label>
+              <Col sm={4}>
+           <Input type="text" name="name" id="name" placeholder="Name"  defaultValue={this.state.campaingn.name} required  />
+          </Col>
+          </FormGroup >
 
-          <div className="form-group row">
+
+          <FormGroup row> 
+              <Label for="age" sm={12}>Age</Label>
+              <Col sm={4}>
+           <Input type="text" name="age" id="age" placeholder="Age"  defaultValue={this.state.campaingn.age} required  />
+          </Col>
+          </FormGroup >
+
+          <FormGroup check> 
+              <Label for="has5g" sm={12}>
+              <Input type="checkbox" name="has5g" id="has5g" placeholder="Has 5g"  defaultValue={this.state.campaingn.has5g} required  /> Has 5g        
+              </Label>
+          </FormGroup >
+
+          {/* <div className="form-group row">
               <label className="control-label col-md-12" htmlFor="age" >Age</label>
               <div className="col-md-4">
                   <input className="form-control" type="text" name="age" defaultValue={this.state.campaingn.age} required />
@@ -35,12 +50,10 @@ export class AddCampaingn extends Component {
           <div className="form-check col-md-11">
             <input className="form-check-input" type="checkbox" name="has5g" defaultValue={this.state.campaingn.has5g} />
           </div>
-          </div>
-          <div className="form-group">
-              <button type="submit" className="btn btn-default">Save</button>
-              <button className="btn" onClick={this.handleCancel}>Cancel</button>
-          </div >
-      </form >
+          </div> */}
+          <Button color="primary" size="lg" type="submit">Submit</Button>{' '}
+          <Button color="secondary" size="lg" onClick={this.handleCancel}>Cancel</Button>
+      </Form >
         );
       }
 
@@ -49,8 +62,10 @@ export class AddCampaingn extends Component {
     
         return (
           <div>
-            <h1 id="tabelLabel" >MEO campaigns want you !!! we want to know if you have 5G?</h1>
-            
+            <h1>MEO campaigns want you !!!</h1>
+            <br/>
+            <h1>We want to know if you have 5G?</h1>
+            <br/>
             { this.state && this.state.campaingn.id==0 &&
              contents
             }
@@ -58,7 +73,7 @@ export class AddCampaingn extends Component {
             { this.state && this.state.campaingn.id>0 &&
              <AddSucessCampaingn/> 
             }
-            
+
           </div>
         );
       }
@@ -76,7 +91,8 @@ export class AddCampaingn extends Component {
   handleSave(event) {
       event.preventDefault();
       const data = new FormData(event.target);
-      
+      this.setState({ loading: true });
+
       fetch('/api/campaingns', {
         method: 'POST',
         body: JSON.stringify(
@@ -93,11 +109,12 @@ export class AddCampaingn extends Component {
         }).then((response) => response.json())
           .catch((erro)=>{})
           .then(campaingn=>{ 
-            this.setState({ campaingn: campaingn, loading: true });
+            this.setState({ campaingn: campaingn, loading: false });
         });
   }
   // This will handle Cancel button click event.
   handleCancel(e) {
     e.preventDefault();
+    window.location='/home'
   }
 }

@@ -18,16 +18,16 @@ export class Campaingn extends Component {
               <tr>
                 <th>Name</th>
                 <th>Age</th>
-                <th>Has5g</th>
+                <th>Has 5G</th>
                 <th>Date</th>
               </tr>
             </thead>
             <tbody>
               {campaingns.map(campaingn =>
                 <tr key={campaingn.id}>
-                   <td>{campaingn.name}</td>
+                  <td>{campaingn.name}</td>
                   <td>{campaingn.age}</td>
-                  <td>{campaingn.has5g}</td>
+                  <td>{campaingn.has5g?'YES':'NO'}</td>
                   <td>{campaingn.date}</td>
                 </tr>
               )}
